@@ -17,10 +17,18 @@ const Home: NextPage = () => {
         <div className={styles.contatos}>
           <input type="text" placeholder="Buscar"></input>
           <div className={styles.contatoIndividual}>
-            <p className={styles.nome}>Nome</p>
-            <p>E-mail</p>
-            <p>Contato</p>
-            <p>tel</p>
+            <div className={styles.box}>
+              <p className={styles.nome}>Nome</p>
+              <div>
+                <a>Editar</a>
+                <a>Excluir</a>
+              </div>
+            </div>
+            <div className={styles.informacao}>
+              <p>E-mail</p>
+              <p>Contato</p>
+              <p>tel</p>
+            </div>
           </div>
         </div>
       </main>
