@@ -37,4 +37,31 @@
       }
     }
   }
+
+  .contatos {
+    width: 500px;
+    padding: 1rem;
+    background-color: #e27037ad;
+    height: 500px;
+    text-align: center;
+    border-radius: 0.8rem;
+    margin-left: 5rem;
+    overflow: auto;
+  }
+  .contatoIndividual {
+    color: #000000;
+    background-color: #c5937b;
+    border-radius: 0.5rem;
+    text-align: left;
+    max-height: 200px;
+    box-sizing: content-box;
+    padding: 0 0.5rem;
+    margin-top: 1rem;
+
+    .nome {
+      font-size: 1.5rem;
+      padding: 0.1rem 1rem;
+      font-weight: bold;
+    }
+  }
 }

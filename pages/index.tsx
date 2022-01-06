@@ -14,9 +14,14 @@ const Home: NextPage = () => {
           <textarea placeholder="Observações" />
           <button type="submit">Salvar</button>
         </form>
-
-        <div>
+        <div className={styles.contatos}>
           <input type="text" placeholder="Buscar"></input>
+          <div className={styles.contatoIndividual}>
+            <p className={styles.nome}>Nome</p>
+            <p>E-mail</p>
+            <p>Contato</p>
+            <p>tel</p>
+          </div>
         </div>
       </main>
     </>
