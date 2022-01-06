@@ -8,5 +8,18 @@
     width: 500px;
     margin-right: 1rem;
     text-align: center;
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border: 1px solid #000000;
+      border-radius: 0.3rem;
+    }
+
+    textarea {
+      resize: none;
+    }
   }
 }
