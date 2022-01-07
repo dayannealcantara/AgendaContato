@@ -18,8 +18,9 @@ const Home: NextPage = () => {
   const [email, setEmail] = useState("");
   const [contato, setContato] = useState("");
   const [observacao, setObservacao] = useState("");
-
   const [contatos, setContatos] = useState<contato[]>();
+  const [busca, setBusca] = useState<contato>();
+  const [estaBuscando, setEstaBuscando] = useState(false);
 
   useEffect(() => {
     const refContatos = database.ref("contatos");
@@ -59,8 +60,26 @@ const Home: NextPage = () => {
     setObservacao("");
   }
 
-  function deletar(ref:string) {
-    const referencia = database.ref(`contatos/${ref}`).remove()
+  function deletar(ref: string) {
+    const referencia = database.ref(`contatos/${ref}`).remove();
+  }
+
+  function buscar(event: FormEvent) {
+    const palavra = event.target.value;
+    if (palavra.length > 0) {
+      setEstaBuscando(true);
+      const dados = new Array();
+
+      contatos?.map((contato) => {
+        const regra = new RegExp(event.target.value, "gi");
+        if (regra.test(contato.nome)) {
+          dados.push(contato);
+        }
+      });
+      setBusca(dados);
+    } else {
+      setEstaBuscando(false);
+    }
   }
 
   return (
@@ -94,25 +113,44 @@ const Home: NextPage = () => {
           <button type="submit">Salvar</button>
         </form>
         <div className={styles.contatos}>
-          <input type="text" placeholder="Buscar"></input>
-          {contatos?.map((contato) => {
-            return (
-              <div key={contato.email} className={styles.contatoIndividual}>
-                <div className={styles.box}>
-                  <p className={styles.nome}>{contato.nome}</p>
-                  <div>
-                    <a>Editar</a>
-                    <a onClick={() => deletar(contato.chave)}>Excluir</a>
+          <input type="text" placeholder="Buscar" onChange={buscar}></input>
+          {estaBuscando ?
+             busca?.map((contato) => {
+                return (
+                  <div key={contato.chave} className={styles.contatoIndividual}>
+                    <div className={styles.box}>
+                      <p className={styles.nome}>{contato.nome}</p>
+                      <div>
+                        <a>Editar</a>
+                        <a onClick={() => deletar(contato.chave)}>Excluir</a>
+                      </div>
+                    </div>
+                    <div className={styles.informacao}>
+                      <p>{contato.email}</p>
+                      <p>{contato.contato}</p>
+                      <p>{contato.observacao}</p>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.informacao}>
-                  <p>{contato.email}</p>
-                  <p>{contato.contato}</p>
-                  <p>{contato.observacao}</p>
-                </div>
-              </div>
-            )
-          })}
+                );
+              })
+            : contatos?.map((contato) => {
+                return (
+                  <div key={contato.chave} className={styles.contatoIndividual}>
+                    <div className={styles.box}>
+                      <p className={styles.nome}>{contato.nome}</p>
+                      <div>
+                        <a>Editar</a>
+                        <a onClick={() => deletar(contato.chave)}>Excluir</a>
+                      </div>
+                    </div>
+                    <div className={styles.informacao}>
+                      <p>{contato.email}</p>
+                      <p>{contato.contato}</p>
+                      <p>{contato.observacao}</p>
+                    </div>
+                  </div>
+                );
+              })}
         </div>
       </main>
     </>
