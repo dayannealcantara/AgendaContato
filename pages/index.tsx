@@ -92,22 +92,22 @@ const Home: NextPage = () => {
         <div className={styles.contatos}>
           <input type="text" placeholder="Buscar"></input>
           {contatos?.map((contato) => {
-            return(
-              <div className={styles.contatoIndividual}>
-              <div className={styles.box}>
-                <p className={styles.nome}>{contato.nome}</p>
-                <div>
-                  <a>Editar</a>
-                  <a>Excluir</a>
+            return (
+              <div key={contato.email} className={styles.contatoIndividual}>
+                <div className={styles.box}>
+                  <p className={styles.nome}>{contato.nome}</p>
+                  <div>
+                    <a>Editar</a>
+                    <a>Excluir</a>
+                  </div>
+                </div>
+                <div className={styles.informacao}>
+                  <p>{contato.email}</p>
+                  <p>{contato.contato}</p>
+                  <p>{contato.observacao}</p>
                 </div>
               </div>
-              <div className={styles.informacao}>
-                <p>{contato.email}</p>
-                <p>{contato.contato}</p>
-                <p>{contato.observacao}</p>
-              </div>
-            </div>;
-            );            
+            )
           })}
         </div>
       </main>
