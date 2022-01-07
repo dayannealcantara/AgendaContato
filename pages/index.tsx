@@ -3,11 +3,14 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
 
+import {database} from '../services/firebase'
+
 const Home: NextPage = () => {
   return (
     <>
       <main className={styles.container}>
         <form>
+          <h2>Adicione um contato</h2>
           <input type="text" placeholder="Nome"></input>
           <input type="email" placeholder="Email"></input>
           <input type="tel" placeholder="Contato"></input>
