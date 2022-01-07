@@ -9,14 +9,14 @@ type contato = {
   chave: string;
   nome: string;
   email: string;
-  contato: string;
+  telefone: string;
   observacao: string;
 };
 
 const Home: NextPage = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [contato, setContato] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [observacao, setObservacao] = useState("");
   const [contatos, setContatos] = useState<contato[]>();
   const [busca, setBusca] = useState<contato>();
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
           chave: chave,
           nome: valor.nome,
           email: valor.email,
-          contato: valor.contato,
+          telefone: valor.telefone,
           observacao: valor.observacao,
         };
       });
@@ -49,14 +49,14 @@ const Home: NextPage = () => {
     const dados = {
       nome,
       email,
-      contato,
+      telefone,
       observacao,
     };
     ref.push(dados);
 
     setNome("");
     setEmail("");
-    setContato("");
+    setTelefone("");
     setObservacao("");
   }
 
@@ -102,8 +102,8 @@ const Home: NextPage = () => {
           <input
             type="tel"
             placeholder="Contato"
-            value={contato}
-            onChange={(event) => setContato(event.target.value)}
+            value={telefone}
+            onChange={(event) => setTelefone(event.target.value)}
           ></input>
           <textarea
             placeholder="Observações"
@@ -127,7 +127,7 @@ const Home: NextPage = () => {
                     </div>
                     <div className={styles.informacao}>
                       <p>{contato.email}</p>
-                      <p>{contato.contato}</p>
+                      <p>{contato.telefone}</p>
                       <p>{contato.observacao}</p>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
                     </div>
                     <div className={styles.informacao}>
                       <p>{contato.email}</p>
-                      <p>{contato.contato}</p>
+                      <p>{contato.telefone}</p>
                       <p>{contato.observacao}</p>
                     </div>
                   </div>
