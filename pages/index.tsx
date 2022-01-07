@@ -59,6 +59,10 @@ const Home: NextPage = () => {
     setObservacao("");
   }
 
+  function deletar(ref:string) {
+    const referencia = database.ref(`contatos/${ref}`).remove()
+  }
+
   return (
     <>
       <main className={styles.container}>
@@ -98,7 +102,7 @@ const Home: NextPage = () => {
                   <p className={styles.nome}>{contato.nome}</p>
                   <div>
                     <a>Editar</a>
-                    <a>Excluir</a>
+                    <a onClick={() => deletar(contato.chave)}>Excluir</a>
                   </div>
                 </div>
                 <div className={styles.informacao}>
