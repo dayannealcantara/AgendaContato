@@ -19,8 +19,10 @@ const Home: NextPage = () => {
   const [telefone, setTelefone] = useState("");
   const [observacao, setObservacao] = useState("");
   const [contatos, setContatos] = useState<contato[]>();
-  const [busca, setBusca] = useState<contato>();
+  const [busca, setBusca] = useState<contato[]>();
   const [estaBuscando, setEstaBuscando] = useState(false);
+  const [chave, setChave] = useState('');
+  const [atualizando, setAtualizando] = useState(false);
 
   useEffect(() => {
     const refContatos = database.ref("contatos");
@@ -82,10 +84,38 @@ const Home: NextPage = () => {
     }
   }
 
+  function editarDados(contato:contato){
+    setAtualizando(true)
+    setChave(contato.chave)
+    setNome(contato.nome)
+    setEmail(contato.email)
+    setTelefone(contato.telefone)
+    setObservacao(contato.observacao)
+  }
+
+  function atualizarContato(){
+    const ref= database.ref('contatos')
+
+    const dados= {
+      'nome':nome,
+      'email': email,
+      'telefone': telefone,
+      'observacao': observacao,
+    }
+    ref.child(chave).update(dados)
+
+    setNome("");
+    setEmail("");
+    setTelefone("");
+    setObservacao("");
+
+    setAtualizando(false)
+  }
+
   return (
     <>
       <main className={styles.container}>
-        <form onSubmit={gravar}>
+        <form >
           <h2>Adicione um contato</h2>
           <input
             type="text"
@@ -110,7 +140,10 @@ const Home: NextPage = () => {
             value={observacao}
             onChange={(event) => setObservacao(event.target.value)}
           />
-          <button type="submit">Salvar</button>
+          {atualizando 
+          ? <button type="button" onClick={atualizarContato}>Atualizar</button>
+          : <button type="button" onClick={gravar}>Salvar</button> 
+          }
         </form>
         <div className={styles.contatos}>
           <input type="text" placeholder="Buscar" onChange={buscar}></input>
@@ -121,7 +154,7 @@ const Home: NextPage = () => {
                     <div className={styles.box}>
                       <p className={styles.nome}>{contato.nome}</p>
                       <div>
-                        <a>Editar</a>
+                        <a onClick={() => editarDados(contato)}>Editar</a>
                         <a onClick={() => deletar(contato.chave)}>Excluir</a>
                       </div>
                     </div>
@@ -139,7 +172,7 @@ const Home: NextPage = () => {
                     <div className={styles.box}>
                       <p className={styles.nome}>{contato.nome}</p>
                       <div>
-                        <a>Editar</a>
+                      <a onClick={() => editarDados(contato)}>Editar</a>
                         <a onClick={() => deletar(contato.chave)}>Excluir</a>
                       </div>
                     </div>
